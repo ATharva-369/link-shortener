@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+    <title>URL SHORTNER </title>
+    <link rel="stylesheet" href="style.css"></link>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="search-container">
+            <label id="url-input-label" for="url-input">Enter URL</label>
+            <input type="text" id="url-input">
+            <button id="shorten">Shorten URL</button>
+        </div>
+        <div class="short-url" id="short-url">
+            
+        </div>
+    </div>
+    <script>
+        var input = document.getElementById("url-input");
+const button = document.getElementById("shorten").onclick = async (e) => {
+    value = input.value
+    e.preventDefault();
+    try{
+        console.log('try')
+        const response = await fetch(`https://api.shrtco.de/v2/shorten?url=${value}`)
+        const data = await response.json()
+        var shortLink = data.result.short_link;
+        document.getElementById("short-url").innerHTML=`${shortLink}`
+        navigator.clipboard.writeText(shortLink);
+        alert("Copied the shortened link!")
+
+    }
+    catch(e){
+        alert(e);
+    }
+    
+}
+    </script>
+</body>
+</html>
